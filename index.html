@@ -1,76 +1,219 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="fr">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculatrice Sombre</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="shortcut icon" href="logo.jpg" type="image/x-icon">
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio — Saïd | IUT Génie Informatique (Niv.2)</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root{
+      --accent:#0d6efd;
+      --muted:#6c757d;
+      --card-bg: rgba(255,255,255,0.85);
+    }
+    body{
+      background: linear-gradient(180deg,#f7fbff 0%, #eef6ff 100%);
+      color:#212529;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    .hero{
+      background: linear-gradient(90deg, rgba(13,110,253,0.06), rgba(13,110,253,0.02));
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 6px 18px rgba(13,110,253,0.04);
+    }
+    .avatar{
+      width:120px; height:120px; border-radius:50%; object-fit:cover; border:4px solid #fff; box-shadow: 0 6px 20px rgba(16,24,40,0.06);
+    }
+    .skill-badge{background: linear-gradient(90deg, rgba(13,110,253,0.08), rgba(13,110,253,0.04)); border-radius: 999px; padding:0.35rem 0.7rem; margin:0.15rem; display:inline-block;}
+    .project-card{transition: transform .18s ease, box-shadow .18s ease}
+    .project-card:hover{transform: translateY(-6px); box-shadow: 0 14px 30px rgba(16,24,40,0.08)}
+    footer{opacity:0.9}
+    @media (max-width:576px){
+      .avatar{width:96px;height:96px}
+    }
+  </style>
 </head>
-
-<body class="bg-dark text-white d-flex justify-content-center align-items-center vh-100">
-    <div class="calculator container p-4 rounded shadow">
-        <h3 class="text-center mb-4">Cal_Kaj</h3>
-        <input type="text" id="display" class="form-control mb-3 text-end" disabled />
-
-        <div class="row g-2">
-            <!-- Ligne 1 -->
-            <div class="col-3"><button class="btn btn-secondary w-100" onclick="clearDisplay()">C</button></div>
-            <div class="col-3"><button class="btn btn-secondary w-100" onclick="deleteLast()">⌫</button></div>
-            <div class="col-3"><button class="btn btn-secondary w-100" onclick="append('%')">%</button></div>
-            <div class="col-3"><button class="btn btn-warning w-100" onclick="append('/')">÷</button></div>
-
-            <!-- Ligne 2 -->
-            <div class="col-3"><button class="btn btn-dark w-100" onclick="append('7')">7</button></div>
-            <div class="col-3"><button class="btn btn-dark w-100" onclick="append('8')">8</button></div>
-            <div class="col-3"><button class="btn btn-dark w-100" onclick="append('9')">9</button></div>
-            <div class="col-3"><button class="btn btn-warning w-100" onclick="append('*')">×</button></div>
-
-            <!-- Ligne 3 -->
-            <div class="col-3"><button class="btn btn-dark w-100" onclick="append('4')">4</button></div>
-            <div class="col-3"><button class="btn btn-dark w-100" onclick="append('5')">5</button></div>
-            <div class="col-3"><button class="btn btn-dark w-100" onclick="append('6')">6</button></div>
-            <div class="col-3"><button class="btn btn-warning w-100" onclick="append('-')">−</button></div>
-
-            <!-- Ligne 4 -->
-            <div class="col-3"><button class="btn btn-dark w-100" onclick="append('1')">1</button></div>
-            <div class="col-3"><button class="btn btn-dark w-100" onclick="append('2')">2</button></div>
-            <div class="col-3"><button class="btn btn-dark w-100" onclick="append('3')">3</button></div>
-            <div class="col-3"><button class="btn btn-warning w-100" onclick="append('+')">+</button></div>
-
-            <!-- Ligne 5 -->
-            <div class="col-6"><button class="btn btn-dark w-100" onclick="append('0')">0</button></div>
-            <div class="col-3"><button class="btn btn-dark w-100" onclick="append('.')">.</button></div>
-            <div class="col-3"><button class="btn btn-success w-100" onclick="calculate()">=</button></div>
-        </div>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">Saïd — Génie Informatique (IUT)</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#about">À propos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projets</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Compétences</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
     </div>
+  </nav>  <main class="container my-5">
+    <!-- Hero -->
+    <section class="row align-items-center g-4 hero">
+      <div class="col-md-8 d-flex gap-3 align-items-center">
+        <img src="image.png" alt="Photo de Saïd" class="avatar">
+        <div>
+          <h1 class="h3 mb-1">NTIECHE NJOH SAÏD</h1>
+          <p class="mb-1 text-muted">Étudiant — Niveau 2, IUT (Génie Informatique)</p>
+          <p class="mb-0">Je suis passionné par le développement logiciel, les systèmes embarqués et la cybersécurité. J'aime créer des solutions simples et efficaces en code propre.</p>
+        </div>
+      </div>
+      <div class="col-md-4 text-md-end">
+        <a class="btn btn-outline-primary me-2" href="#contact"><i class="bi bi-envelope-fill"></i> Me contacter</a>
+        <a class="btn btn-primary" href="#" download="CV-Said.pdf"><i class="bi bi-download"></i> Télécharger CV</a>
+      </div>
+    </section><!-- About / Education -->
+<section id="about" class="row mt-5">
+  <div class="col-lg-6">
+    <div class="card p-3 h-100 shadow-sm" style="background:var(--card-bg)">
+      <h2 class="h5">À propos de moi</h2>
+      <p class="mb-2">Je m'appelle Saïd, étudiant en 2<sup>e</sup> année de Génie Informatique à l'IUT. J'ai de l'expérience en HTML/CSS, JavaScript, C, Python et je travaille actuellement sur des projets web et embarqués.</p>
+      <ul class="list-unstyled mb-0">
+        <li><strong>Filière :</strong> Génie Informatique</li>
+        <li><strong>Niveau :</strong> 2<sup>e</sup> année</li>
+        <li><strong>Université :</strong> IUT</li>
+        <li><strong>Langues :</strong> Français (natif), Anglais (intermédiaire)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-lg-6 mt-3 mt-lg-0">
+    <div class="card p-3 h-100 shadow-sm" style="background:var(--card-bg)">
+      <h2 class="h5">Formation & Expériences</h2>
+      <div class="mb-3">
+        <h3 class="h6 mb-0">IUT — Génie Informatique</h3>
+        <small class="text-muted">2024 — En cours</small>
+        <p class="mb-1">Modules principaux : Programmation C, Structures de données, Réseaux, Bases de données.</p>
+      </div>
+      <div>
+        <h3 class="h6 mb-0">Stage étudiant (exemple)</h3>
+        <small class="text-muted">Juin 2024 — Août 2024</small>
+        <p class="mb-0">Stage court en maintenance informatique : diagnostic, réparation et déploiement de postes. Participation à un mini-projet d'automatisation.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        const display = document.getElementById("display");
+<!-- Projects -->
+<section id="projects" class="mt-5">
+  <h2 class="h4 mb-3">Projets</h2>
+  <div class="row g-3">
+    <div class="col-md-6">
+      <div class="card project-card p-3 h-100 shadow-sm">
+        <h3 class="h6">Site personnel (Portfolio)</h3>
+        <p class="small text-muted">HTML • CSS • Bootstrap</p>
+        <p>Un site responsive présentant mes projets, mon CV et un formulaire de contact. Conçu pour être simple, accessible et facile à mettre à jour.</p>
+        <a href="#" class="stretched-link">Voir le code (exemple)</a>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card project-card p-3 h-100 shadow-sm">
+        <h3 class="h6">Mini système embarqué</h3>
+        <p class="small text-muted">C • Microcontrôleur</p>
+        <p>Projet académique : capteur de température connecté, lecture via UART, affichage sur écran LCD et transmission vers application PC.</p>
+        <a href="#" class="stretched-link">Voir le projet (exemple)</a>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card project-card p-3 h-100 shadow-sm">
+        <h3 class="h6">Application de gestion de notes</h3>
+        <p class="small text-muted">Python • SQLite</p>
+        <p>Une petite application pour gérer les notes et absences des étudiants avec export CSV.</p>
+        <a href="https://iut-presence.wuaze.com/" class="stretched-link">Voir le code (exemple)</a>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card project-card p-3 h-100 shadow-sm">
+        <h3 class="h6">Mini-site e-commerce (maquette)</h3>
+        <p class="small text-muted">HTML • CSS • JS</p>
+        <p>Prototype d'un catalogue en ligne avec panier simple et filtres par catégorie.</p>
+        <a href="Kajastore.onrender.com" class="stretched-link">Voir la maquette</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-        function append(char) {
-            display.value += char;
-        }
+<!-- Skills -->
+<section id="skills" class="mt-5">
+  <h2 class="h4 mb-3">Compétences</h2>
+  <div class="card p-3 shadow-sm" style="background:var(--card-bg)">
+    <div class="row">
+      <div class="col-md-6">
+        <h3 class="h6">Techniques</h3>
+        <div class="mb-2">
+          <span class="skill-badge">HTML</span>
+          <span class="skill-badge">CSS / Bootstrap</span>
+          <span class="skill-badge">JavaScript</span>
+          <span class="skill-badge">C</span>
+          <span class="skill-badge">Python</span>
+          <span class="skill-badge">SQL</span>
+        </div>
+        <h3 class="h6">Outils</h3>
+        <div>
+          <span class="skill-badge">Git</span>
+          <span class="skill-badge">VS Code</span>
+          <span class="skill-badge">Linux</span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h3 class="h6">Soft skills</h3>
+        <ul>
+          <li>Travail en équipe</li>
+          <li>Résolution de problèmes</li>
+          <li>Organisation</li>
+        </ul>
+        <h3 class="h6">Centres d'intérêt</h3>
+        <p class="mb-0">Programmation, électronique, jeux vidéo, lecture technique.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-        function clearDisplay() {
-            display.value = "";
-        }
+<!-- Contact -->
+<section id="contact" class="mt-5">
+  <h2 class="h4 mb-3">Contact</h2>
+  <div class="row g-3">
+    <div class="col-md-6">
+      <div class="card p-3 shadow-sm" style="background:var(--card-bg)">
+        <h3 class="h6">Me contacter</h3>
+        <p class="mb-0"><i class="bi bi-envelope-fill"></i> <strong>Email :</strong> njohsaid00@gmail.com</p>
+        <p class="mb-0"><i class="bi bi-phone-fill"></i> <strong>Téléphone :</strong> +237 6 50 46 99 87</p>
+        <p class="mb-0"><i class="bi bi-geo-alt-fill"></i> <strong>Localisation :</strong> Douala, Cameroun</p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <form class="card p-3 shadow-sm" onsubmit="event.preventDefault(); alert('Formulaire simulé — remplacez par backend ou mailto.');">
+        <div class="mb-3">
+          <label class="form-label">Nom</label>
+          <input class="form-control" placeholder="Votre nom">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input class="form-control" placeholder="votre@email.com">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Message</label>
+          <textarea class="form-control" rows="4"></textarea>
+        </div>
+        <button class="btn btn-primary">Envoyer</button>
+      </form>
+    </div>
+  </div>
+</section>
 
-        function deleteLast() {
-            display.value = display.value.slice(0, -1);
-        }
-
-        function calculate() {
-            try {
-                display.value = eval(display.value.replace('%', '/100'));
-            } catch (error) {
-                display.value = "Erreur";
-            }
-        }
-
-    </script>
-</body>
-
+  </main>  <footer class="bg-white py-3 shadow-sm">
+    <div class="container d-flex justify-content-between align-items-center">
+      <small>© Saïd — IUT Génie Informatique • Niveau 2</small>
+      <div>
+        <a class="text-decoration-none me-3" href="#projects">Projets</a>
+        <a class="text-decoration-none" href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script></body>
 </html>
